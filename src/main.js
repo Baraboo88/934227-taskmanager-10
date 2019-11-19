@@ -1,8 +1,10 @@
 'use strict';
 
+const NUMBER_OF_ARTICLES = 3;
+
 const mainControl = document.querySelector(`.main__control`);
 const main = document.querySelector(`.main`);
-const NUMBER_OF_ARTICLTES = 3;
+
 const addMenuBlock = () => {
   return `<section class="control__btn-wrap">
           <input
@@ -405,11 +407,18 @@ const render = (container, blockToAdd, position = `beforeend`) =>
 render(mainControl, addMenuBlock);
 render(main, addFilterBlock);
 render(main, addBoardBlock);
-
+const boardBlock = document.querySelector(`.board`);
 const boardTasks = document.querySelector(`.board__tasks`);
 render(boardTasks, addCreadEditBlock);
-for (let i = 0; i < NUMBER_OF_ARTICLTES; i++) {
-  render(boardTasks, addTaskBlock);
-}
 
-render(main, addLoadMore);
+const repeat = (count, fn) => {
+  Array(count)
+    .fill(``)
+    .forEach(fn);
+};
+
+repeat(NUMBER_OF_ARTICLES, () => {
+  render(boardTasks, addTaskBlock);
+});
+
+render(boardBlock, addLoadMore);
