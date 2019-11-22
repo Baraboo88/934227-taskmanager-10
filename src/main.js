@@ -417,6 +417,7 @@ const repeat = (count, fn) => {
     .forEach(fn);
 };
 
+
 repeat(NUMBER_OF_ARTICLES, () => {
   render(boardTasks, addTaskBlock);
 });
