@@ -28,21 +28,15 @@ const getRamdomArrayItem = (array) => {
 
 const getRandomDate = () => {
   const date = new Date();
-  date.setDate(date.getDate() + 7 * (Math.random() > 0.5 ? 1 : -1));
+  date.setDate(date.getDate() + getRandomInt(7) * (Math.random() > 0.5 ? 1 : -1)
+  );
   return date;
 };
 
-const generateRepeatingDays = () => {
-  return Object.assign({}, defaultRepeatingDays, {
-    mo: Math.random() > 0.5,
-    tu: Math.random() > 0.5,
-    we: Math.random() > 0.5,
-    th: Math.random() > 0.5,
-    fr: Math.random() > 0.5,
-    sa: Math.random() > 0.5,
-    su: Math.random() > 0.5
-  });
-};
+const generateRepeatingDays = () =>
+  Object.keys(defaultRepeatingDays).reduce((acc, cur) =>
+    Object.assign(acc, {[cur]: Math.random() > 0.5}, {})
+  );
 
 const generateTags = (tagsArr) => {
   return tagsArr.filter(() => Math.random() > 0.5).slice(0, 3);
@@ -62,8 +56,7 @@ const generateTask = () => {
   };
 };
 
-const generateTasks = (count) => {
-  return [...Array(count)].map(() => generateTask());
-};
+const generateTasks = (count) => [...Array(count)].map(() => generateTask());
 
-export {generateTask, generateTasks};
+
+export {generateTasks};

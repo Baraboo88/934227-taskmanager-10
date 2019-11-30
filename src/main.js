@@ -1,5 +1,5 @@
 import {addMenuBlock} from './components/menu';
-import {addFilterBlock} from './components/filter';
+import {generateFilterBlock as addFilterBlock} from './components/filter';
 import {addBoardBlock} from './components/board';
 import {addCreatEditBlock} from './components/task-edit';
 import {addTaskBlock} from './components/task';
@@ -19,7 +19,7 @@ const render = (container, blockToAdd, position = `beforeend`) =>
   container.insertAdjacentHTML(position, blockToAdd);
 
 render(mainControl, addMenuBlock());
-render(main, addFilterBlock());
+render(main, addFilterBlock(tasks));
 render(main, addBoardBlock());
 const boardBlock = document.querySelector(`.board`);
 const boardTasks = document.querySelector(`.board__tasks`);
@@ -42,6 +42,10 @@ loadMoreButton.addEventListener(`click`, () => {
   tasks.slice(prevTasksCount, showTasksCount).forEach((el) => {
     render(boardTasks, addTaskBlock(el));
   });
+
+  if (showTasksCount >= NUMBER_OF_ARTICLES) {
+    boardBlock.removeChild(loadMoreButton);
+  }
 });
 
 

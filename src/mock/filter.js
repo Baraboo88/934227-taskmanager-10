@@ -1,4 +1,4 @@
-const filtersName = [
+export const filtersNames = [
   `all`,
   `overdue`,
   `today`,
@@ -8,13 +8,12 @@ const filtersName = [
   `archive`
 ];
 
+/*
 const generateFilters = () => {
   return filtersName.map((el) => {
     return {
-      name: el,
+      title: el,
       count: Math.floor(Math.random() * 10)
     };
   });
-};
-
-export {generateFilters};
+};*/

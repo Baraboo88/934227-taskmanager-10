@@ -8,3 +8,18 @@ export const formatAMPM = (date) => {
   let strTime = hours + `:` + minutes + ` ` + ampm;
   return strTime;
 };
+
+export const monthNames = [
+  `January`,
+  `February`,
+  `March`,
+  `April`,
+  `May`,
+  `June`,
+  `July`,
+  `August`,
+  `September`,
+  `October`,
+  `November`,
+  `December`
+];

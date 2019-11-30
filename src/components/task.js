@@ -1,19 +1,5 @@
 import {formatAMPM} from './../util';
-
-export const monthNames = [
-  `January`,
-  `February`,
-  `March`,
-  `April`,
-  `May`,
-  `June`,
-  `July`,
-  `August`,
-  `September`,
-  `October`,
-  `November`,
-  `December`
-];
+import {monthNames} from './../util';
 
 const createHashtagsMarkup = (hashtags) => {
   return hashtags
@@ -40,7 +26,7 @@ export const addTaskBlock = (task) => {
 
   const time = isDateShowing ? `${formatAMPM(dueDate)}` : ``;
 
-  const repeatClass = Object.values(repeatingDays).values(Boolean)
+  const repeatClass = Object.values(repeatingDays).some(Boolean)
     ? `card--repeat`
     : ``;
 
