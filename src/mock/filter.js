@@ -1,4 +1,4 @@
-export const filtersNames = [
+const filtersNames = [
   `all`,
   `overdue`,
   `today`,
@@ -8,12 +8,33 @@ export const filtersNames = [
   `archive`
 ];
 
-/*
-const generateFilters = () => {
-  return filtersName.map((el) => {
+const getFiltersCount = (filter, tasks) => {
+  switch (filter) {
+    case `all`:
+      return tasks.length;
+    case `overdue`:
+      return tasks.filter((el) => el.dueDate instanceof Date && el.dueDate < Date.now()).length;
+    case `today`:
+      return tasks.filter((el) => el.dueDate && el.dueDate.getDate() === new Date().getDate()).length;
+    case `favorites`:
+      return tasks.filter((el) => el.isFavorite).length;
+    case `repeating`:
+      return tasks.filter((el) => el.repeatingDays).length;
+    case `tags`:
+      return tasks.filter((el) => el.tags).length;
+    case `archive`:
+      return tasks.filter((el) => el.isArchive).length;
+    default: return 0;
+  }
+};
+
+const generateFilters = (tasks) => {
+  return filtersNames.map((el) => {
     return {
       title: el,
-      count: Math.floor(Math.random() * 10)
+      count: getFiltersCount(el, tasks)
     };
   });
-};*/
+};
+
+export {generateFilters};

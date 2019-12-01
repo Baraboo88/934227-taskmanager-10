@@ -1,4 +1,4 @@
-import {filtersNames} from './../mock/filter';
+import {generateFilters} from './../mock/filter';
 
 const createFilter = (filter, isChecked) => {
   const {title, count} = filter;
@@ -16,74 +16,7 @@ const createFilter = (filter, isChecked) => {
 };
 
 const generateFilterBlock = (tasks) => {
-  const allFilters = tasks.length;
-  let overdueFilterCounter = 0;
-  let todayFilterCounter = 0;
-  let favoriteFilterCounter = 0;
-  let repeatingFilterCounter = 0;
-  let tagsFilterCounter = 0;
-  let archiveFilterCounter = 0;
-
-  tasks.forEach((el) => {
-    const {dueDate, repeatingDays, isFavorite, isArchive, tags} = el;
-    if (dueDate instanceof Date && dueDate < Date.now()) {
-      overdueFilterCounter++;
-    }
-    if (dueDate && dueDate.getDate() === new Date().getDate()) {
-      todayFilterCounter++;
-    }
-    if (repeatingDays) {
-      repeatingFilterCounter++;
-    }
-    if (isFavorite) {
-      favoriteFilterCounter++;
-    }
-    if (isArchive) {
-      archiveFilterCounter++;
-    }
-    if (tags) {
-      tagsFilterCounter++;
-    }
-  });
-
-  const filters = filtersNames.map((el) => {
-    if (el === `all`) {
-      return {
-        title: el,
-        count: allFilters
-      };
-    } else if (el === `overdue`) {
-      return {
-        title: el,
-        count: overdueFilterCounter
-      };
-    } else if (el === `today`) {
-      return {
-        title: el,
-        count: todayFilterCounter
-      };
-    } else if (el === `favorites`) {
-      return {
-        title: el,
-        count: favoriteFilterCounter
-      };
-    } else if (el === `repeating`) {
-      return {
-        title: el,
-        count: repeatingFilterCounter
-      };
-    } else if (el === `tags`) {
-      return {
-        title: el,
-        count: tagsFilterCounter
-      };
-    } else {
-      return {
-        title: el,
-        count: archiveFilterCounter
-      };
-    }
-  });
+  const filters = generateFilters(tasks);
 
   const renderFilter = filters
     .map((el, i) => {

@@ -56,7 +56,7 @@ const generateTask = () => {
   };
 };
 
-const generateTasks = (count) => [...Array(count)].map(() => generateTask());
+const generateTasks = (count) => [...Array(count)].map(generateTask);
 
 
 export {generateTasks};
