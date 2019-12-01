@@ -19,9 +19,9 @@ const getFiltersCount = (filter, tasks) => {
     case `favorites`:
       return tasks.filter((el) => el.isFavorite).length;
     case `repeating`:
-      return tasks.filter((el) => el.repeatingDays).length;
+      return tasks.filter((el) => Object.values(el.repeatingDays).some(Boolean)).length;
     case `tags`:
-      return tasks.filter((el) => el.tags).length;
+      return tasks.filter((el) => el.tags.size).length;
     case `archive`:
       return tasks.filter((el) => el.isArchive).length;
     default: return 0;
