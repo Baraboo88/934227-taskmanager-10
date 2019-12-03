@@ -1,4 +1,6 @@
-export const addCreatEditBlock = () => {
+import {createElement} from '../util';
+
+const addCreatEditBlock = () => {
   return `<article class="card card--edit card--black">
             <form class="card__form" method="get">
               <div class="card__inner">
@@ -208,3 +210,24 @@ export const addCreatEditBlock = () => {
         </form>
         </article>`;
 };
+
+export default class TaskEdit {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return addCreatEditBlock();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

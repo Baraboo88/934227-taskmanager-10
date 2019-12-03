@@ -1,5 +1,6 @@
 import {formatAMPM} from './../util';
-import {monthNames} from './../util';
+import {MONTH_NAMES} from './../util';
+import {createElement} from './../util';
 
 const createHashtagsMarkup = (hashtags) => {
   return hashtags
@@ -13,7 +14,7 @@ const createHashtagsMarkup = (hashtags) => {
     .join(`\n`);
 };
 
-export const addTaskBlock = (task) => {
+const addTaskBlock = (task) => {
   const {description, dueDate, repeatingDays, tags, color} = task;
 
   const isExpired = dueDate instanceof Date && dueDate < Date.now();
@@ -21,7 +22,7 @@ export const addTaskBlock = (task) => {
   const isDateShowing = !!dueDate;
 
   const date = isDateShowing
-    ? `${dueDate.getDate()} ${monthNames[dueDate.getMonth()]}`
+    ? `${dueDate.getDate()} ${MONTH_NAMES[dueDate.getMonth()]}`
     : ``;
 
   const time = isDateShowing ? `${formatAMPM(dueDate)}` : ``;
@@ -87,3 +88,25 @@ export const addTaskBlock = (task) => {
             </div>
           </article>`;
 };
+
+export default class Task {
+  constructor(task) {
+    this._element = null;
+    this._task = task;
+  }
+
+  getTemplate() {
+    return addTaskBlock(this._task);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
