@@ -9,7 +9,7 @@ export const formatAMPM = (date) => {
   return strTime;
 };
 
-export const monthNames = [
+export const MONTH_NAMES = [
   `January`,
   `February`,
   `March`,
@@ -23,3 +23,26 @@ export const monthNames = [
   `November`,
   `December`
 ];
+
+export const renderPositions = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`
+};
+
+export const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};
+
+export const render = (container, element, place) => {
+  switch (place) {
+    case renderPositions.AFTERBEGIN:
+      container.prepend(element);
+      break;
+    case renderPositions.BEFOREEND:
+      container.append(element);
+      break;
+  }
+};

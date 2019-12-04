@@ -1,4 +1,6 @@
-export const addMenuBlock = () => {
+import {createElement} from '../util';
+
+const addMenuBlock = () => {
   return `<section class="control__btn-wrap">
           <input
             type="radio"
@@ -28,3 +30,24 @@ export const addMenuBlock = () => {
           >
         </section>`;
 };
+
+export default class SiteMenu {
+  constructor() {
+    this._element = null;
+  }
+
+  getTeplate() {
+    return addMenuBlock();
+  }
+
+  getElement() {
+    if (this._element) {
+      this._element = createElement(this.getTeplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

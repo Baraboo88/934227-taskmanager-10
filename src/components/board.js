@@ -1,4 +1,6 @@
-export const addBoardBlock = () => {
+import {createElement} from '../util';
+
+const addBoardBlock = () => {
   return `<section class="board container">
         <div class="board__filter-list">
           <a href="#" class="board__filter">SORT BY DEFAULT</a>
@@ -8,3 +10,24 @@ export const addBoardBlock = () => {
         <div class="board__tasks"></div>
         </section>`;
 };
+
+export default class Board {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return addBoardBlock();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
