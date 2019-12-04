@@ -38,7 +38,7 @@ const renderTask = (taskObj) => {
 
   const editForm = taskEdit.getElement().querySelector(`form`);
 
-  editForm.addEventListener(`click`, taskReplacementHandler(task.getElement(), taskEdit.getElement())
+  editForm.addEventListener(`submit`, taskReplacementHandler(task.getElement(), taskEdit.getElement())
   );
 
   render(boardTasks, task.getElement(), renderPositions.BEFOREEND);
