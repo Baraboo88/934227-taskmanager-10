@@ -59,6 +59,8 @@ const renderTask = (taskObj) => {
   render(boardTasks, task.getElement(), renderPositions.BEFOREEND);
 };
 
+const tasksReRendering = () => tasks.slice(0, SHOWING_TASKS_COUNT_ON_START).forEach((el) => renderTask(el));
+
 const showMoreButtonClickHandler = () => {
   const prevTasksCount = showTasksCount;
 
@@ -84,7 +86,7 @@ if (isAllTasksArchived) {
   render(board.getElement(), loadMoreButton.getElement(), renderPositions.BEFOREEND);
 }
 
-tasks.slice(0, SHOWING_TASKS_COUNT_ON_START).forEach((el) => renderTask(el));
+tasksReRendering();
 
 loadMoreButton
   .getElement()
