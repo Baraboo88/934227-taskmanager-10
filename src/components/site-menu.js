@@ -36,13 +36,13 @@ export default class SiteMenu {
     this._element = null;
   }
 
-  getTeplate() {
+  getTemplate() {
     return addMenuBlock();
   }
 
   getElement() {
-    if (this._element) {
-      this._element = createElement(this.getTeplate());
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
     }
     return this._element;
   }
