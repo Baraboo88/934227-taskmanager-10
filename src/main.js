@@ -59,7 +59,21 @@ const renderTask = (taskObj) => {
   render(boardTasks, task.getElement(), renderPositions.BEFOREEND);
 };
 
-const tasksReRendering = () => tasks.slice(0, SHOWING_TASKS_COUNT_ON_START).forEach((el) => renderTask(el));
+const renderTasks = () => {
+  const isAllTasksArchived = tasks.every((task) => task.isArchive);
+
+  if (isAllTasksArchived) {
+    while (board.getElement().firstChild) {
+      board.getElement().removeChild(board.getElement().firstChild);
+    }
+    render(board.getElement(), new NoTasks().getElement(), renderPositions.AFTERBEGIN
+    );
+  } else if (tasks.length > showTasksCount) {
+    render(board.getElement(), loadMoreButton.getElement(), renderPositions.BEFOREEND);
+  }
+
+  tasks.slice(0, SHOWING_TASKS_COUNT_ON_START).forEach((el) => renderTask(el));
+};
 
 const showMoreButtonClickHandler = () => {
   const prevTasksCount = showTasksCount;
@@ -74,19 +88,7 @@ const showMoreButtonClickHandler = () => {
   }
 };
 
-const isAllTasksArchived = tasks.every((task) => task.isArchive);
-
-if (isAllTasksArchived) {
-  while (board.getElement().firstChild) {
-    board.getElement().removeChild(board.getElement().firstChild);
-  }
-  render(board.getElement(), new NoTasks().getElement(), renderPositions.AFTERBEGIN
-  );
-} else if (tasks.length > showTasksCount) {
-  render(board.getElement(), loadMoreButton.getElement(), renderPositions.BEFOREEND);
-}
-
-tasksReRendering();
+renderTasks();
 
 loadMoreButton
   .getElement()
