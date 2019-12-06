@@ -1,4 +1,4 @@
-import {createElement} from '../util';
+import AbstractComponent from './abstract-component';
 
 const addCreatEditBlock = () => {
   return `<article class="card card--edit card--black">
@@ -211,23 +211,12 @@ const addCreatEditBlock = () => {
         </article>`;
 };
 
-export default class TaskEdit {
-  constructor() {
-    this._element = null;
-  }
-
+export default class TaskEdit extends AbstractComponent {
   getTemplate() {
     return addCreatEditBlock();
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setSubmitHandler(handler) {
+    this.getElement().querySelector(`form`).addEventListener(`submit`, handler);
   }
 }

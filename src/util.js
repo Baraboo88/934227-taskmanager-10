@@ -46,3 +46,8 @@ export const render = (container, element, place) => {
       break;
   }
 };
+
+export const remove = (component) => {
+  component.getElement().remove();
+  component.removeElement();
+};
