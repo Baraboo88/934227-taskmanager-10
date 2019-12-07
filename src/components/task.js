@@ -1,6 +1,6 @@
-import {formatAMPM} from './../util';
-import {MONTH_NAMES} from './../util';
-import {createElement} from './../util';
+import {formatAMPM} from '../utils/util';
+import {MONTH_NAMES} from '../utils/util';
+import AbstractComponent from "./abstract-component";
 
 const createHashtagsMarkup = (hashtags) => {
   return hashtags
@@ -89,9 +89,9 @@ const addTaskBlock = (task) => {
           </article>`;
 };
 
-export default class Task {
+export default class Task extends AbstractComponent {
   constructor(task) {
-    this._element = null;
+    super();
     this._task = task;
   }
 
@@ -99,14 +99,7 @@ export default class Task {
     return addTaskBlock(this._task);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setEditHandler(handler) {
+    this.getElement().querySelector(`.card__btn--edit`).addEventListener(`click`, handler);
   }
 }

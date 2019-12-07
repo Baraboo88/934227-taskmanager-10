@@ -36,13 +36,3 @@ export const createElement = (template) => {
   return newElement.firstChild;
 };
 
-export const render = (container, element, place) => {
-  switch (place) {
-    case renderPositions.AFTERBEGIN:
-      container.prepend(element);
-      break;
-    case renderPositions.BEFOREEND:
-      container.append(element);
-      break;
-  }
-};
