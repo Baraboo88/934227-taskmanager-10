@@ -1,5 +1,5 @@
-import {formatAMPM} from './../util';
-import {MONTH_NAMES} from './../util';
+import {formatAMPM} from '../utils/util';
+import {MONTH_NAMES} from '../utils/util';
 import AbstractComponent from "./abstract-component";
 
 const createHashtagsMarkup = (hashtags) => {

@@ -1,6 +1,7 @@
 import Task from '../components/task';
 import TaskEdit from '../components/task-edit';
-import {remove, render, renderPositions} from '../util';
+import {renderPositions} from '../utils/util';
+import {remove, render} from "../utils/render";
 import NoTasks from '../components/no-tasks';
 import LoadMoreButton from '../components/load-more-button';
 import Sort from '../components/sort';

@@ -2,7 +2,8 @@ import SiteMenu from './components/site-menu';
 import Filter from './components/filter';
 import Board from './components/board';
 import {generateTasks} from './mock/task';
-import {render, renderPositions} from './util';
+import {renderPositions} from './utils/util';
+import {render} from "./utils/render";
 import BoardController from "./controllers/BoardController";
 
 const NUMBER_OF_ARTICLES = 20;
