@@ -66,6 +66,8 @@ export default class BoardController {
     };
 
     const renderTasks = (tasksToRender) => {
+      showTasksCount = SHOWING_TASKS_COUNT_ON_START;
+      remove(this._loadMoreButton);
       while (this._tasks.getElement().firstChild) {
         this._tasks
           .getElement()
@@ -96,15 +98,13 @@ export default class BoardController {
       let sortedTasks = [...tasks];
       switch (sortTp) {
         case sortType.DEFAULT:
-          showTasksCount = SHOWING_TASKS_COUNT_ON_START;
+          remove(this._loadMoreButton);
           renderTasks(tasks);
           break;
         case sortType.DATE_DOWN:
-          showTasksCount = SHOWING_TASKS_COUNT_ON_START;
           renderTasks(sortedTasks.sort((a, b) => b.dueDate - a.dueDate));
           break;
         case sortType.DATE_UP:
-          showTasksCount = SHOWING_TASKS_COUNT_ON_START;
           renderTasks(sortedTasks.sort((a, b) => a.dueDate - b.dueDate));
           break;
       }
