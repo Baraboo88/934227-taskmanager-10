@@ -1,4 +1,4 @@
-import {renderPositions} from "./util";
+import {renderPositions} from './util';
 
 export const render = (container, element, place) => {
   switch (place) {
@@ -14,4 +14,8 @@ export const render = (container, element, place) => {
 export const remove = (component) => {
   component.getElement().remove();
   component.removeElement();
+};
+
+export const replace = (newElement, oldElement) => {
+  oldElement.getElement().parentElement.replaceChild(newElement.getElement(), oldElement.getElement());
 };

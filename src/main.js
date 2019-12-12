@@ -4,7 +4,7 @@ import Board from './components/board';
 import {generateTasks} from './mock/task';
 import {renderPositions} from './utils/util';
 import {render} from "./utils/render";
-import BoardController from "./controllers/BoardController";
+import BoardController from "./controllers/board-controller";
 
 const NUMBER_OF_ARTICLES = 20;
 const mainControl = document.querySelector(`.main__control`);
