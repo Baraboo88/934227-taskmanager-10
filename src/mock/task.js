@@ -1,20 +1,10 @@
-import {COLORS} from '../utils/util';
+import {COLORS, defaultRepeatingDays} from '../utils/util';
 
 const descriptions = [
   `Изучить теорию`,
   `Сделать домашку`,
   `Пройти интенсив на соточку`
 ];
-
-const defaultRepeatingDays = {
-  mo: false,
-  tu: false,
-  we: false,
-  th: false,
-  fr: false,
-  sa: false,
-  su: false
-};
 
 const tags = [`homework`, `theory`, `practice`, `intensive`, `keks`];
 

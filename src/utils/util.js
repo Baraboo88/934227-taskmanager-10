@@ -10,6 +10,16 @@ export const formatDate = (date) => {
 
 export const COLORS = [`black`, `yellow`, `blue`, `green`, `pink`];
 
+export const defaultRepeatingDays = {
+  mo: false,
+  tu: false,
+  we: false,
+  th: false,
+  fr: false,
+  sa: false,
+  su: false
+};
+
 export const MONTH_NAMES = [
   `January`,
   `February`,

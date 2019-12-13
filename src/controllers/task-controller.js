@@ -1,7 +1,7 @@
 import Task from '../components/task';
 import TaskEdit from '../components/task-edit';
 import {render, replace} from '../utils/render';
-import {renderPositions} from '../utils/util';
+import {renderPositions, defaultRepeatingDays} from '../utils/util';
 
 const mode = {
   DEFAULT: `default`,
@@ -16,9 +16,11 @@ export default class TaskController {
     this._taskEdit = null;
     this._onViewChange = onViewChange;
     this._mode = mode.DEFAULT;
+    this._taskData = null;
   }
 
   render(taskObj) {
+    this._taskData = taskObj;
     const oldTask = this._task;
     const oldTaskEdit = this._taskEdit;
 
@@ -47,11 +49,15 @@ export default class TaskController {
     );
 
     if (oldTask && oldTaskEdit) {
-      replace(this._task, oldTask);
-      replace(this._taskEdit, oldTaskEdit);
+      if (oldTask.getElement().parentElement) {
+        replace(this._task, oldTask);
+      } else {
+        replace(this._task, oldTaskEdit);
+      }
+
+
     } else {
-      render(
-          this._container.getElement(),
+      render(this._container.getElement(),
           this._task.getElement(),
           renderPositions.BEFOREEND
       );
@@ -81,8 +87,32 @@ export default class TaskController {
       };
     }
 
-    return () => {
-      this.changeCards(newElement, replaceableElement);
+    return (evt) => {
+      evt.preventDefault();
+      const dueDateQuery = this._taskEdit.getElement().querySelector(`.card__date`);
+      const colorQuery = this._taskEdit.getElement().querySelectorAll(`.card__color-input`);
+      const repeatingDaysQuery = this._taskEdit.getElement().querySelectorAll(`.card__repeat-day-input`);
+      const dueDateChanged = dueDateQuery ? new Date(dueDateQuery.value) : null;
+      let colorChanged = [...colorQuery].find((el) => el.checked) ? [...colorQuery].find((el) => el.checked).value : this._taskData.color;
+      let repeatingDaysChanged = null;
+
+      if (repeatingDaysQuery) {
+        repeatingDaysChanged = [...repeatingDaysQuery].reduce((result, el) => {
+          if (el.checked) {
+            const obj = {};
+            obj[el.value] = true;
+            result = Object.assign(result, obj);
+          }
+          return result;
+        }, defaultRepeatingDays);
+      } else {
+        repeatingDaysChanged = defaultRepeatingDays;
+      }
+
+
+      this._onDataChange(this,
+          this._taskData,
+          Object.assign({}, this._taskData, {color: colorChanged, dueDate: dueDateChanged, repeatingDays: repeatingDaysChanged}))();
 
       this._mode = mode.DEFAULT;
     };

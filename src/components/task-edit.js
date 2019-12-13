@@ -6,7 +6,7 @@ const addCreatEditBlock = (task, taskToUpdateObj) => {
   const {activeRepeatingDays, isRepeatingTask, isDateShowing} = taskToUpdateObj;
   const isExpired = dueDate instanceof Date && dueDate < Date.now();
   const isBlockSaveButton =
-    (isDateShowing && isRepeatingTask) || (!isRepeatingTask && !isDateShowing);
+    (isDateShowing && isRepeatingTask) || (!isDateShowing && !isRepeatingTask);
   const date = isDateShowing && dueDate ? formatDate(dueDate) : ``;
   const time = isDateShowing && dueDate ? formatAMPM(dueDate) : ``;
   const repeatClass = isRepeatingTask ? `card--repeat` : ``;
@@ -143,7 +143,7 @@ const addCreatEditBlock = (task, taskToUpdateObj) => {
         </div>
 
         <div class="card__status-btns">
-          <button class="card__save" type="submit" ${isBlockSaveButton ? `disable` : ``}>save</button>
+          <button class="card__save" type="submit" ${isBlockSaveButton ? `disabled` : ``}>save</button>
           <button class="card__delete" type="button">delete</button>
         </div>
         </div>
@@ -159,7 +159,7 @@ export default class TaskEdit extends AbstractSmartComponent {
     this._isRepeatingTask = Object.values(task.repeatingDays).some(Boolean);
     this._activeRepeatingDays = Object.assign({}, task.repeatingDays);
     this._flatpickr = null;
-
+    this._submitHandler = null;
     this._applyFlatpickr();
     this._subscribeOnEvents();
   }
@@ -174,6 +174,9 @@ export default class TaskEdit extends AbstractSmartComponent {
 
   recoveryListener() {
     this._subscribeOnEvents();
+    this.getElement()
+    .querySelector(`form`)
+    .addEventListener(`submit`, this._submitHandler);
   }
 
   rerender() {
@@ -226,6 +229,7 @@ export default class TaskEdit extends AbstractSmartComponent {
   }
 
   setSubmitHandler(handler) {
+    this.setSubmitHandler = handler;
     this.getElement()
       .querySelector(`form`)
       .addEventListener(`submit`, handler);

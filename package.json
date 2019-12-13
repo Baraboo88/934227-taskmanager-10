@@ -23,7 +23,8 @@
   "prettier": {
     "singleQuote": true,
     "bracketSpacing": false,
-    "arrowParens": "always"
+    "arrowParens": "always",
+    "tabWidth": 2
   },
   "dependencies": {
     "flatpickr": "^4.6.3",

@@ -1,32 +1,45 @@
 import {renderPositions} from '../utils/util';
-import {remove, render} from '../utils/render';
+import {remove, render, replace} from '../utils/render';
 import NoTasks from '../components/no-tasks';
 import LoadMoreButton from '../components/load-more-button';
 import Sort, {sortType} from '../components/sort';
 import Tasks from '../components/tasks';
 import TaskController from './task-controller';
+import Filter from './../components/filter';
 
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
 export default class BoardController {
-  constructor(container) {
+  constructor(container, filter) {
+    this._filter = filter;
     this._container = container;
     this._loadMoreButton = new LoadMoreButton();
     this._sort = new Sort();
     this._tasks = new Tasks();
+    this._noTasks = new NoTasks();
     this._tasksArray = null;
     this._showedTaskControllers = [];
     this._onDataChange = (taskController, task, newTask) => {
       return () => {
         const index = this._tasksArray.findIndex((el) => el === task);
         this._tasksArray[index] = newTask;
+        const newFilter = new Filter(this._tasksArray);
+        replace(newFilter, this._filter);
+        this._filter = newFilter;
         taskController.render(newTask);
+        if (this._isAllTasksArchived(this._tasksArray)) {
+          replace(this._noTasks, this._tasks);
+        }
       };
     };
     this._onViewChange = () => {
       this._showedTaskControllers.forEach((el) => el.setDefaultView());
     };
+  }
+
+  _isAllTasksArchived(tasks) {
+    return tasks.every((task) => task.isArchive);
   }
 
   render(tasks) {
@@ -62,12 +75,12 @@ export default class BoardController {
           .getElement()
           .removeChild(this._tasks.getElement().firstChild);
       }
-      const isAllTasksArchived = tasks.every((task) => task.isArchive);
+      const isAllTasksArchived = this._isAllTasksArchived(tasks);
 
       if (isAllTasksArchived) {
         render(
             board.getElement(),
-            new NoTasks().getElement(),
+            this._noTasks.getElement(),
             renderPositions.AFTERBEGIN
         );
       } else {
