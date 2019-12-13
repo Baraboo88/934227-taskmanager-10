@@ -92,7 +92,8 @@ export default class TaskController {
       const dueDateQuery = this._taskEdit.getElement().querySelector(`.card__date`);
       const colorQuery = this._taskEdit.getElement().querySelectorAll(`.card__color-input`);
       const repeatingDaysQuery = this._taskEdit.getElement().querySelectorAll(`.card__repeat-day-input`);
-      const dueDateChanged = dueDateQuery ? new Date(dueDateQuery.value) : null;
+      const dueDateChanged = isNaN(Date.parse(dueDateQuery.value)) ? null : new Date(dueDateQuery.value);
+
       let colorChanged = [...colorQuery].find((el) => el.checked) ? [...colorQuery].find((el) => el.checked).value : this._taskData.color;
       let repeatingDaysChanged = null;
 

@@ -173,10 +173,8 @@ export default class TaskEdit extends AbstractSmartComponent {
   }
 
   recoveryListener() {
+
     this._subscribeOnEvents();
-    this.getElement()
-    .querySelector(`form`)
-    .addEventListener(`submit`, this._submitHandler);
   }
 
   rerender() {
@@ -203,6 +201,9 @@ export default class TaskEdit extends AbstractSmartComponent {
 
   _subscribeOnEvents() {
     const element = this.getElement();
+    element
+    .querySelector(`form`)
+    .addEventListener(`submit`, this._handler);
 
     element
       .querySelector(`.card__date-deadline-toggle`)
@@ -222,14 +223,13 @@ export default class TaskEdit extends AbstractSmartComponent {
     if (repeatDays) {
       repeatDays.addEventListener(`change`, (evt) => {
         this._activeRepeatingDays[evt.target.value] = evt.target.checked;
-
         this.rerender();
       });
     }
   }
 
   setSubmitHandler(handler) {
-    this.setSubmitHandler = handler;
+    this._handler = handler;
     this.getElement()
       .querySelector(`form`)
       .addEventListener(`submit`, handler);
