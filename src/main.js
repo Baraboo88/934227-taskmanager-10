@@ -15,6 +15,7 @@ const filter = new Filter(tasks);
 
 render(mainControl, new SiteMenu().getElement(), renderPositions.BEFOREEND);
 render(main, filter.getElement(), renderPositions.BEFOREEND);
+
 render(main, board.getElement(), renderPositions.BEFOREEND);
 
 const boardController = new BoardController(board, filter);
