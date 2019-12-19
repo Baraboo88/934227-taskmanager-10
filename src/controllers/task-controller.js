@@ -19,6 +19,10 @@ export default class TaskController {
     this._taskData = null;
   }
 
+  renderNewTask() {
+    this._taskReplacementHandler(this._taskEdit, this._task)();
+  }
+
   render(taskObj) {
     this._taskData = taskObj;
     const oldTask = this._task;
@@ -33,6 +37,11 @@ export default class TaskController {
     this._taskEdit.setSubmitHandler(
         this._taskReplacementHandler(this._task, this._taskEdit)
     );
+    this._taskEdit.setDeleteHandler(() => {
+      this._mode = mode.DEFAULT;
+      this._onDataChange(this, this._taskData, null)();
+    });
+
     this._task.setArchiveHandler(
         this._onDataChange(
             this,

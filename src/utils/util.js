@@ -8,7 +8,22 @@ export const formatDate = (date) => {
   return moment(date).format(`DD MMMM`);
 };
 
+export const isSameDate = (date) => {
+  return formatDate(date) === formatDate(new Date());
+};
+
 export const COLORS = [`black`, `yellow`, `blue`, `green`, `pink`];
+
+
+export const filterTypes = {
+  ALL: `filter__all`,
+  ARCHIVE: `filter__archive`,
+  FAVORITES: `filter__favorites`,
+  OVERDUE: `filter__overdue`,
+  TAGS: `filter__tags`,
+  TODAY: `filter__today`,
+  REPEATING: `filter__repeating`
+};
 
 export const defaultRepeatingDays = {
   mo: false,

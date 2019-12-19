@@ -43,6 +43,16 @@ const generateTask = () => {
   };
 };
 
-const generateTasks = (count) => [...Array(count)].map(generateTask);
+export const defaulTask = {
+  description: ``,
+  dueDate: null,
+  repeatingDays: defaultRepeatingDays,
+  tags: new Set(),
+  color: `pink`,
+  isFavorite: false,
+  isArchive: false
+};
+
+const generateTasks = (count) => [...Array(count)].map((el, i) => ({...generateTask(), id: i}));
 
 export {generateTasks};

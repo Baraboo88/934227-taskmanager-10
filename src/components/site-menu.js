@@ -35,4 +35,8 @@ export default class SiteMenu extends AbstractComponent {
   getTemplate() {
     return addMenuBlock();
   }
+
+  setAddTaskHandler(handler) {
+    this.getElement().querySelector(`.control__label`).addEventListener(`click`, handler);
+  }
 }

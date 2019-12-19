@@ -173,7 +173,6 @@ export default class TaskEdit extends AbstractSmartComponent {
   }
 
   recoveryListener() {
-
     this._subscribeOnEvents();
   }
 
@@ -203,7 +202,7 @@ export default class TaskEdit extends AbstractSmartComponent {
     const element = this.getElement();
     element
     .querySelector(`form`)
-    .addEventListener(`submit`, this._handler);
+    .addEventListener(`submit`, this._submitHandler);
 
     element
       .querySelector(`.card__date-deadline-toggle`)
@@ -229,9 +228,16 @@ export default class TaskEdit extends AbstractSmartComponent {
   }
 
   setSubmitHandler(handler) {
-    this._handler = handler;
+    this._submitHandler = handler;
     this.getElement()
       .querySelector(`form`)
       .addEventListener(`submit`, handler);
+  }
+
+  setDeleteHandler(handler) {
+    this._deleteHandler = handler;
+    this.getElement()
+      .querySelector(`.card__delete`)
+      .addEventListener(`click`, handler);
   }
 }

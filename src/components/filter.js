@@ -40,5 +40,12 @@ export default class Filter extends AbstractComponent {
     return generateFilterBlock(this._filters);
   }
 
+  setFilterChangeHandler(handler) {
+    this.getElement().addEventListener(`change`, (evt) => {
+      const filterId = evt.target.id;
+      handler(filterId);
+    });
+  }
+
 }
 
